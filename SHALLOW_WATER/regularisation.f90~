@@ -1,0 +1,14 @@
+program regularisation
+  implicit none
+  integer :: N , i
+  real*8 :: dx
+  real*8,dimension(:),allocatable :: X
+  print*,"Entrez le decoupage N de l'intervalle"
+  print*,"  "
+  read*,N
+  dx = 2.0d0/N
+
+  
+
+end program regularisation
+

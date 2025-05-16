@@ -1,0 +1,202 @@
+/*******************************************************************/
+/*                   SURF_2D INITIALISATION FILE                   */
+/*                                                                 */
+/*   	                   Fabien Marche                           */
+/*                                                                 */
+/* I3M	- Institut de Mathematiques et Modelisation de Montpellier */
+/*                    Universite Montpellier 2                     */
+/*******************************************************************/
+
+TEST CASE (INTEGER=>NCI): 29
+===   test soliton   ===
+
+DEBUG: .FALSE.
+SV_ONLY: .FALSE.
+
+/*************************************/
+/* Definition of boundary conditions */
+/*************************************/
+
+LEFT BOUNDARY (INTEGER=>NCLL): 1
+RIGHT BOUNDARY (INTEGER=>NCLR): 1
+condlim (INTEGER=>condlim): 2
+
+/**************************************/
+/* Definition of computational domain */
+/**************************************/
+
+CELL'S NUMBER IN X DIRECTION (INTEGER=>Nbx): 1000
+
+COMPUTING DOMAIN LEFT BOUND  (REAL*8=>X_in): 0.0D0
+COMPUTING DOMAIN RIGHT BOUND (REAL*8=>X_out): 15.0D0
+
+/**********************************/
+/* Computation time and iteration */
+/**********************************/
+
+MAXIMUM NUMBER OF TIME ITERATIONS (INTEGER=>NtMax): 2000
+INITIAL TIME OF COMPUTATION (SECONDS) (REAL*8=>TimeInit): 0.0D0
+FINAL TIME OF COMPUTATION (IN SECONDS) (REAL*8=>TimeOut): 5.0D0
+
+/***********************************/
+/* Dispersive optimisation parameters
+/**********************************
+
+ALPHA: 1.0D0
+THETA: 0.0D0
+GAMMA: 0.0D0
+
+/*******************************************/
+/* Accuracy, flux limiter, time scheme ... */
+/*******************************************/
+
+FLUX LIMITER CHOICE (INTEGER=>limiter): 1
+
+-->SPACIAL ORDER OF ACCURACY (INTEGER=>space_order): 
+----->( godunov, muscl2a, muscl2b, muscl2c, eno2, eno2mod, ...
+-----> ... muscl4a, muscl4b, muscl5, V4, weno5 )
+godunov
+
+------> RIEMANN SOLVER (CHARACTER=>Riemann_Solv)
+-----------> (VFROE, HLLC, EDP)
+VFROE
+
+------> TIME SCHEME (INTEGER=>time_order)
+1
+
+------> FINITE DIFFERENCE SPACE ORDER (INTEGER=>ordre_espace_df)
+2
+
+/*********************/
+/* Tuning parameters */
+/*********************/
+
+MINIMUM WATER DEPTH VALUE TO DEFINE A DRY CELL (REAL*8=>Kappa): 1.0D-4
+MINIMUM WATER DEPTH VALUE TO FORCE ZERO VELOCITY (REAL*8=>Kappa_bis): 5.0D-3
+MINIMUM VELOCITY VALUE TO FORCE ZERO (REAL*8=>Utol): 1.0D-9
+
+CFL NUMBER (REAL*8=>CFL): 0.4D0
+FORCE THE VALUE OF TIME STEP (BOOLEAN=>ChoixDt): .FALSE.
+(IF FORCED TIME STEP) VALUE OF TIME STEP (REAL*8=>DtFix): 2.0D-3
+
+VALUE FOR FIND_LAST_WET ROUTINE (REAL*8=>FLW): 1.0D-10
+
+-->COMPUTATION OF ANALYTICAL SOLUTION (WHEN AVAILABLE) (BOOLEAN=>Solex): 
+.FALSE.
+
+-->READ A REFERENCE SOLUTION (WHEN AVAILABLE) (BOOLEAN=>Sol_ref): 
+.FALSE.
+
+-->NAME OF THE REFERENCE SOLUTION FILE (CHAR=>char__SolRef):
+no file
+
+-->NUMBER OF CELLS IN THE REFERENCE SOLUTION FILE(INTEGER=>NbxRef):
+6400
+
+/************************************************************/
+/* Definition of outputs frequency and results files format */
+/************************************************************/
+
+FREQUENCY OF PRINTING RESULTS FILES (INTEGER=>NFreq): 10
+
+-->PRINTING RESULTS FILES IN MATLAB FORMAT (BOOLEAN=>var_mat): 
+.TRUE.
+
+/***************************************************************/
+/* Error L1, L2 or LINF computation (when analytical solution) */
+/***************************************************************/
+
+--->PRINT ERROR-COMPUTATION RESULTS (BOOLEAN=>ERROR):
+.FALSE.  
+
+---> KIND OF COMPUTATION ERROR (BOOLEAN=>err_type)
+----> (CHOICE : L1, L2, INF, ALL)
+L2
+    
+/*******************************************************************/
+/* Time series computation                                         */
+/*******************************************************************/
+
+-->PRINT TIME-SERIES RESULTS FILES (BOOLEAN=>TIME_SERIE): 
+.FALSE.
+ 
+-->FREQUENCY OF PRINTING TIME-SERIES RESULTS FILES (INTEGER=>NFreqTime): 
+10
+
+-->NUMBER OF POINTS (INTEGER=>point_number):
+2
+
+-->COORDINATES OF THE POINTS (Bipoint=>point_coord):
+320.0D0 60.0D0 / 330.D0 70.0D0
+
+-->NAME OF THE OUTPUT FILE (CHARACTER=>file_time):
+time_series
+
+/*******************************************************************/
+/*Include some source terms : diffusion, friction, Coriolis etc... */
+/*******************************************************************/
+
+-->INCLUDE SOURCE TERM IN THE SIMULATION (CHARACTER=>source_term): 
+---->(implicit, explicit_diff, explicit_fric, none)
+none
+
+-->LAMINAR FRICTION COEFFICIENT VALUE (REAL*8=>kl): 
+5.0D-3
+
+-->QUADRATIC FRICTION COEFFICIENT VALUE (REAL*8=>kt): 
+0.0D0
+
+-->MANNING (k**2) OR DARCY (k) friction coefficient (REAL*8=>k_manning):
+0.0D0
+
+-->DARCY (k) friction coefficient (REAL*8=>k_darcy):
+0.0D0
+
+-->HORIZONTAL EDDY VISCOSITY COEFFICIENT (REAL*8=>mu_h): 
+0.0D0
+
+-->VERTICAL EDDY VISCOSITY COEFFICIENT (REAL*8=>mu_v): 
+1.0D-2
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,252 @@
+/*******************************************************************/
+/*                   SURF_2D INITIALISATION FILE                   */
+/*                                                                 */
+/*   	                   Fabien Marche                           */
+/*                                                                 */
+/* I3M	- Institut de Mathematiques et Modelisation de Montpellier */
+/*                    Universite Montpellier 2                     */
+/*******************************************************************/
+
+TEST CASE (INTEGER=>NCI): 1
+===   generation test : soliton  ===
+
+DEBUG: .FALSE.
+SV_ONLY: .FALSE.
+
+/*************************************/
+/* Definition of boundary conditions */
+/*************************************/
+
+LEFT BOUNDARY (INTEGER=>NCLL): 2
+RIGHT BOUNDARY (INTEGER=>NCLR): 2
+condlim (INTEGER=>condlim): 4
+
+/**************************************/
+/* Definition of computational domain */
+/**************************************/
+
+CELL'S NUMBER IN X DIRECTION (INTEGER=>Nbx): 400
+
+COMPUTING DOMAIN LEFT BOUND  (REAL*8=>X_in):   0.0D0
+COMPUTING DOMAIN RIGHT BOUND (REAL*8=>X_out):  15.0D0
+
+/**********************************/
+/* Computation time and iteration */
+/**********************************/
+
+MAXIMUM NUMBER OF TIME ITERATIONS (INTEGER=>NtMax): 150000
+INITIAL TIME OF COMPUTATION (SECONDS) (REAL*8=>TimeInit): 0.0D0
+FINAL TIME OF COMPUTATION (IN SECONDS) (REAL*8=>TimeOut): 80.0D0
+
+/***********************************/
+/* Dispersive optimisation parameters
+/**********************************
+
+ALPHA: 1.159D0
+THETA: 0.0D0
+GAMMA: 0.0D0
+
+/*******************************************/
+/* Accuracy, flux limiter, time scheme ... */
+/*******************************************/
+
+FLUX LIMITER CHOICE (INTEGER=>limiter): 1
+
+-->SPACIAL ORDER OF ACCURACY (INTEGER=>space_order): 
+----->( godunov, muscl2a, muscl2b, muscl2c, eno2, eno2mod, ...
+-----> ... muscl4a, muscl4b, muscl5, V4, weno5 )
+godunov
+
+------> RIEMANN SOLVER (CHARACTER=>Riemann_Solv)
+-----------> (VFROE, HLLC, EDP)
+HLLC
+
+------> TIME SCHEME (INTEGER=>time_order)
+1
+
+------> FINITE DIFFERENCE SPACE ORDER (INTEGER=>ordre_espace_df)
+4
+
+/*********************/
+/* Tuning parameters */
+/*********************/
+
+MINIMUM WATER DEPTH VALUE TO DEFINE A DRY CELL (REAL*8=>Kappa): 1.0D-4
+MINIMUM WATER DEPTH VALUE TO FORCE ZERO VELOCITY (REAL*8=>Kappa_bis): 5.0D-3
+MINIMUM VELOCITY VALUE TO FORCE ZERO (REAL*8=>Utol): 1.0D-9
+
+CFL NUMBER (REAL*8=>CFL): 0.2D0
+FORCE THE VALUE OF TIME STEP (BOOLEAN=>ChoixDt): .FALSE.
+(IF FORCED TIME STEP) VALUE OF TIME STEP (REAL*8=>DtFix): 2.0D-2
+
+VALUE FOR FIND_LAST_WET ROUTINE (REAL*8=>FLW): 1.0D-10
+
+-->COMPUTATION OF ANALYTICAL SOLUTION (WHEN AVAILABLE) (BOOLEAN=>Solex): 
+.FALSE.
+
+-->READ A REFERENCE SOLUTION (WHEN AVAILABLE) (BOOLEAN=>Sol_ref): 
+.FALSE.
+
+-->NAME OF THE REFERENCE SOLUTION FILE (CHAR=>char__SolRef):
+no file
+
+-->NUMBER OF CELLS IN THE REFERENCE SOLUTION FILE(INTEGER=>NbxRef):
+6400
+
+/************************************************************/
+/* Definition of outputs frequency and results files format */
+/************************************************************/
+
+FREQUENCY OF PRINTING RESULTS FILES (INTEGER=>NFreq): 1
+
+-->PRINTING RESULTS FILES IN MATLAB FORMAT (BOOLEAN=>var_mat): 
+.TRUE.
+
+/***************************************************************/
+/* Error L1, L2 or LINF computation (when analytical solution) */
+/***************************************************************/
+
+--->PRINT ERROR-COMPUTATION RESULTS (BOOLEAN=>ERROR):
+.FALSE.  
+
+---> KIND OF COMPUTATION ERROR (BOOLEAN=>err_type)
+----> (CHOICE : L1, L2, INF, ALL)
+L2
+    
+/*******************************************************************/
+/* Time series computation                                         */
+/*******************************************************************/
+
+-->PRINT TIME-SERIES RESULTS FILES (BOOLEAN=>TIME_SERIE): 
+.FALSE.
+ 
+-->FREQUENCY OF PRINTING TIME-SERIES RESULTS FILES (INTEGER=>NFreqTime): 
+10
+
+-->NUMBER OF POINTS (INTEGER=>point_number):
+2
+
+-->COORDINATES OF THE POINTS (Bipoint=>point_coord):
+320.0D0 60.0D0 / 330.D0 70.0D0
+
+-->NAME OF THE OUTPUT FILE (CHARACTER=>file_time):
+time_series
+
+/*******************************************************************/
+/*Include some source terms : diffusion, friction, Coriolis etc... */
+/*******************************************************************/
+
+-->INCLUDE SOURCE TERM IN THE SIMULATION (CHARACTER=>source_term): 
+---->(implicit, explicit_diff, explicit_fric, none)
+none
+
+-->LAMINAR FRICTION COEFFICIENT VALUE (REAL*8=>kl): 
+5.0D-3
+
+-->QUADRATIC FRICTION COEFFICIENT VALUE (REAL*8=>kt): 
+0.0D0
+
+-->MANNING (k**2) OR DARCY (k) friction coefficient (REAL*8=>k_manning):
+0.0D0
+
+-->DARCY (k) friction coefficient (REAL*8=>k_darcy):
+0.0D0
+
+-->HORIZONTAL EDDY VISCOSITY COEFFICIENT (REAL*8=>mu_h): 
+0.0D0
+
+-->VERTICAL EDDY VISCOSITY COEFFICIENT (REAL*8=>mu_v): 
+1.0D-2
+
+
+
+
+
+
+
+
+
+
+ INITIALISATION DES PARAMETRES'
+       CONDITION INITIALE'
+           =================='
+             CAS TEST DESIRE :'
+
+           100 - Reprise a partir de l'itération indiquée'
+	   ==============================================='
+           0 - Rupture de barrage sur "fond mouillé"'
+           1 - Rupture de barrage sur "fond sec"'
+           2 - Double detente sans assechement'
+           3 - Rupture de barrage sur fond sec'
+           4 - Double detente avec assechement'
+           5 - Bosse + etat au repos'
+           6 - Bosse + creneau d''eau'
+           7 - Pente lineaire'
+           8 - Escalier'
+          ==============================================='
+          10 - Butte seche'
+          11 - Butte + etat au repos'
+          12 - Butte + ecoulement subcritique'
+          13 - Butte + ecoulement transcritique sans choc'
+          14 - Butte + ecoulement transcritique avec choc'
+          ==============================================='
+          20 - Butte + etat au repos avec partie seche'
+          21 - Butte + marche d''eau recouv '
+          = ==============================================='
+          30 - Synolakis - Onde solitaire non-lineaire 1D sur plage'
+          31 - Carrier and Greenspan - Periodic solution -  onde non-lineaire 1D sur plage'
+          32 - Experience de Cox - Deferlement deversant
+	  ==============================================='
+	  40 - Gaussienne - Propagation Onde lineaire 1D sur fond plat'
+          41 - Gaussienne - Affaissement Onde non-lineaire 1D sur fond plat'
+          42 - Onde lineaire 1D sur relief'
+          43 - Effondrement d'une marche d'eau sur un cone 1-D
+	  ==============================================='	
+          50 - Onde non-linéaire 2D sur fond plat'
+          51 - Onde linéaire 2D sur relief - Bathy bizar'
+          52 - Onde linéaire 2D sur relief - Dune'
+          53 - Cas THACKER 2D axisymetrique dans profil parabolique'
+          54 - Cas THACKER 2D non-axisymetrique dans profil parabolique'
+
+     ====================='
+     CONDITION AUX LIMITES'
+     ====================='
+    
+      1 - Neummann homogene'
+      2 - entrante'
+      3 - paroi'
+      4 - absorbante'
+      5 - debit impose'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

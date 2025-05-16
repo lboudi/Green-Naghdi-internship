@@ -1,0 +1,197 @@
+#------------------------------------------------------------------------------
+# Include file for GNU make or original make 
+#------------------------------------------------------------------------------
+
+#------------------------------------------------------------------------------
+# Generic configuration
+#------------------------------------------------------------------------------
+
+MOD = ../MODULES
+SOURCEf ="f90"
+SOURCEoldf = "f"
+SOURCEc ="c"
+RANLIB = ranlib
+AR = ar cr
+
+# delete and rename a file
+RM = rm -f
+MV = mv -f
+CD = cd
+
+# General libraries
+LIB = -lm
+
+
+# Fortran g95 libraries PATH
+LIBGFORT = /usr/local/lib/
+LIBGFORT64 = /usr/local/lib/x86_64
+INCG95 = /Users/fabien/g95-install/lib/gcc-lib/i386-apple-darwin8.10.3/4.0.3/
+LIBG95 = -lm
+
+
+# ranlib, and ar, for generating libraries
+#RANLIB = ranlib
+#AR = ar
+
+WARNING = NO
+
+#------------------------------------------------------------------------------
+# COMPILERS CHOICES
+#------------------------------------------------------------------------------
+
+#=======================================
+#======================================
+## Fortran compilers and Fortran FLAGS
+#======================================
+#=======================================
+
+#====================================
+## Using INTEL IFORT 32 bits compiler:
+#====================================
+#F95 = ifort
+#F95FLAGS = -vec-report0 -O3 -module $(MOD) -m32 -heap-arrays 
+#F95FLAGS = -opt-multi-version-aggressive -vec-report5 -O2 -module $(MOD) -m32 -heap-arrays -opt-ra-region-strategy=routine -warn all
+#F95FLAGS = -opt-multi-version-aggressive -vec-report0 -O2 -module $(MOD) -m32 -heap-arrays -opt-ra-region-strategy=routine -warn all
+
+#====================================
+## Using INTEL IFORT 64 bits compiler:
+#====================================
+#F95 = ifort
+#F95FLAGS = -vec-report0 -O3 -module $(MOD) -m64 -heap-arrays -i8 
+
+#===================================
+## Using GNU GFORTRAN compiler - 32 bits only !! 
+#===================================
+F95 = gfortran
+## Avec auto-vectorisation et verbose
+F95FLAGS = -O3 -J$(MOD) -mmacosx-version-min=10.5 -L$(LIBGFORT) -ftree-vectorize -ftree-vectorizer-verbose=0
+## Avec auto-vectorisation sans verbose
+##F95FLAGS = -O2 -J$(MOD) -mmacosx-version-min=10.4 -L$(LIBGFORT) -msse2 -ftree-vectorize 
+
+#===================================
+## Using GNU GFORTRAN compiler - 64 bits only !! 
+#===================================
+#F95 = gfortran
+## Avec auto-vectorisation et verbose
+#F95FLAGS = -O3 -J$(MOD) -mmacosx-version-min=10.5 -L$(LIBGFORT64) -ftree-vectorize -m64 -fdefault-integer-8 -ftree-vectorizer-verbose=0
+## Avec auto-vectorisation sans verbose
+##F95FLAGS = -O2 -J$(MOD) -mmacosx-version-min=10.4 -L$(LIBGFORT) -msse2 -ftree-vectorize 
+
+#====================
+## Using g95 compiler - 32 bits only !!
+#====================
+#F95 = g95
+## FLAGS with -fno-pic (for MAC OS 10.4 and 10.5)
+##F95FLAGS = -O2 -fno-underscoring -fno-pic -cpp -fmod=$(MOD) -fpack-derived -fzero -fintrinsic-extensions
+#F95FLAGS = -O3 -fno-pic -cpp -fmod=$(MOD) -fpack-derived -fzero -fintrinsic-extensions -g -ftrace=full
+##F95FLAGS = -Wall -O2 -fno-pic -cpp -fmod=$(MOD) -fpack-derived -fzero -fintrinsic-extensions 
+## FLAGS without -fno-pic (linux, *nix)
+##F95FLAGS = -O2 -cpp -fmod=$(MOD) -fpack-derived -fzero -fintrinsic-extensions
+## WITH WARNING AND TYPE F95
+## F95FLAGS = -O2 -cpp -Wall -fmod=$(MOD) -fpack-derived -fzero -fintrinsic-extensions
+
+#================================
+#===============================
+## C compiler and compiler flags
+#===============================
+#================================
+
+## Using gcc compiler with picky tests in 32 bits mode
+CC = gcc
+CFLAGS = -O3 -fno-common -m32 -no-cpp-precomp -fexceptions -ansi -I$(INC_UMF) -I$(INC_AMD) -I$(INC_UF) -g -ftrace=full
+
+## Using gcc compiler with picky tests in 64 bits mode
+#CC = gcc
+#CFLAGS = -O3 -fno-common -no-cpp-precomp -DDLONG -fexceptions -ansi -I$(INC_UMF) -I$(INC_AMD) -I$(INC_UF) -m64
+
+## Using INTEL icc 32 bits compiler
+# CC = icc
+# CFLAGS = -O3 -vec_report=0 -m32 -I$(INC_UMF) -I$(INC_AMD) -I$(INC_UF)
+
+## Using INTEL icc 64 bits compiler
+# CC = icc
+# CFLAGS = -O3 -DDLONG -vec_report=0 -m64 -I$(INC_UMF) -I$(INC_AMD) -I$(INC_UF)
+
+# for gcc and gcov:
+# CC = gcc
+# CFLAGS = -pg -ftest-coverage -fprofile-arcs
+
+# Running splint
+# CC = - splint
+# CFLAGS = -weak -fixedformalarray -badflag -fileextensions +relaxtypes +posixlib -unrecog
+
+
+## POSSIBLY :
+## ARCH CONFIGURATION FOR CFLAGS, BLAS AND LAPACK (to consider eventually...)
+
+#------------------------------------------------------------------------------
+# Macintosh
+#------------------------------------------------------------------------------
+
+# CC = gcc
+# CFLAGS = -O3 -fno-common -no-cpp-precomp -fexceptions
+# LIB = -lstdc++
+# BLAS = -framework Accelerate
+# LAPACK = -framework Accelerate
+
+#------------------------------------------------------------------------------
+# AMD Opteron (64 bit)
+#------------------------------------------------------------------------------
+
+# BLAS = -lgoto_opteron64 -lg2c
+# LAPACK = -llapack_opteron64
+
+# SUSE Linux 10.1, AMD Opteron
+# F77 = gfortran
+# BLAS = -lgoto_opteron64 -lgfortran
+# LAPACK = -llapack_opteron64
+
+
+#------------------------------------------------------------------------------
+# Linux
+#------------------------------------------------------------------------------
+
+# Using default compilers:
+# CC = gcc
+#CFLAGS = -O3
+
+# alternatives:
+# CFLAGS = -g -fexceptions \
+   	-Wall -W -Wshadow -Wmissing-prototypes -Wstrict-prototypes \
+    	-Wredundant-decls -Wnested-externs -Wdisabled-optimization -ansi
+# CFLAGS = -O3 -fexceptions \
+   	-Wall -W -Werror -Wshadow -Wmissing-prototypes -Wstrict-prototypes \
+    	-Wredundant-decls -Wnested-externs -Wdisabled-optimization -ansi
+# CFLAGS = -O3 -fexceptions -D_FILE_OFFSET_BITS=64 -D_LARGEFILE64_SOURCE
+# CFLAGS = -O3
+
+# consider:
+# -fforce-addr -fmove-all-movables -freduce-all-givs -ftsp-ordering
+# -frename-registers -ffast-math -funroll-loops
+
+# Using the Goto BLAS:
+# BLAS = -lgoto -lfrtbegin -lg2c $(XERBLA) -lpthread
+
+# Using Intel's icc and ifort compilers:
+#   (does not work for mexFunctions unless you add a mexopts.sh file)
+# F77 = ifort
+# CC = icc
+# CFLAGS = -O3 -xN -vec_report=0
+# CFLAGS = -g
+# old (broken): CFLAGS = -ansi -O3 -ip -tpp7 -xW -vec_report0
+
+# 64bit:
+# F77FLAGS = -O -m64
+# CFLAGS = -O3 -fexceptions -m64
+# BLAS = -lgoto64 -lfrtbegin -lg2c -lpthread $(XERBLA)
+# LAPACK = -llapack64
+
+
+# SUSE Linux 10.1, AMD Opteron, with GOTO Blas
+# F77 = gfortran
+# BLAS = -lgoto_opteron64 -lgfortran
+
+# SUSE Linux 10.1, Intel Pentium, with GOTO Blas
+# F77 = gfortran
+# BLAS = -lgoto -lgfortran
+

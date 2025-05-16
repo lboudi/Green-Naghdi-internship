@@ -1,0 +1,126 @@
+90                          ! NCI ! Choix de condition initiale
+7 1 1 1                     ! NCLL, NCLR, NCLT, NCLB  ! choix des conditions aux limites
+500 2                     ! Nbx, Nby
+0                           ! Choix definition domaine -- 0 : ondonne juste DomlenX et DomlenY -- 1 : on onne Xg, Xd, Yb, Yh
+135.D0 1.D0                  ! DomLenX, DomLenY 
+-1. 400. -0.5 380.5             ! XG, XD, YB, YH
+0 68.0 82.0                ! Raf(finement), X1, X2 - Choix de raffiner le maillage entre x1 et x2
+100 150                       ! N1 et N3 pour le raffinement
+5000                      ! NtMax
+0.D0                      ! TimeInit
+300.                         ! TimeOut (en seconde)
+100                         ! NFreq pour hauteur d'eau et vitesse
+.F.                         ! SolEx  (ie Calcul et tracé de la solution exacte si Solex=TRUE )   
+1                           ! NStart  (1 par defaut)
+1                          ! DIMENSION DU TEST (dimension 1 ou dimension 2)
+.F.                         ! Terme source - Mise en place du splitting 
+1.0D-2                      ! r0 Coef de friction laminaire
+3.2D-2                      ! r1 Coef de friction turbulente
+1.0D-8                     ! kappa Valeur numerique minimum de decouvrement pour cellule seche
+1.0D-5                      ! kappa_bis Valeur numerique minimum de decouvrement pour vitesse nulle
+1.0D-5                      ! Utol seuil de tolérance pour vitesse nulle
+0.5D0                       ! CFL
+1                           ! Onde choisie pour forçage en CL
+.F.                         ! SORT_ERROR
+.F.                         ! TIME_SERIES
+10                          ! Nfreq pr les time-series
+.F.                         ! Choix Dt TRUE= Fixé a DtFix FALSE=CFL
+1.0D-2                      ! DtFix
+1.0D-10                     ! FLW - parametre de find last wet
+.F.                         ! VORTICITY - sortie des fichier vorticité si TRUE
+40                         ! NFreq pour la vorticité
+1                          ! Choice of the slope-limiter (1: minmod, 2: van-albada, 3:van-leer, 4:arora-roe, 5:superbee)
+4.0                         ! Choice of b1 for the fourth order method
+4                          ! i_order : order of precision
+.F.                       ! var_plt
+.F.                       ! var_vtk
+.F.                       ! var_surf
+.T.                       ! var_mat
+.F.                       ! friction
+
+
+! cas train d'onde periodique (onde=1)
+
+ INITIALISATION DES PARAMETRES'
+       CONDITION INITIALE'
+           =================='
+             CAS TEST DESIRE :'
+
+           100 - Reprise a partir de l'itération indiquée'
+	   ==============================================='
+           0 - Rupture de barrage sur "fond mouillé"'
+           1 - Rupture de barrage sur "fond sec"'
+           2 - Double detente sans assechement'
+           3 - Rupture de barrage sur fond sec'
+           4 - Double detente avec assechement'
+           5 - Bosse + etat au repos'
+           6 - Bosse + creneau d''eau'
+           7 - Pente lineaire'
+           8 - Escalier'
+          ==============================================='
+          10 - Butte seche'
+          11 - Butte + etat au repos'
+          12 - Butte + ecoulement subcritique'
+          13 - Butte + ecoulement transcritique sans choc'
+          14 - Butte + ecoulement transcritique avec choc'
+          ==============================================='
+          20 - Butte + etat au repos avec partie seche'
+          21 - Butte + marche d''eau recouv '
+          = ==============================================='
+          30 - Synolakis - Onde solitaire non-lineaire 1D sur plage'
+          31 - Carrier and Greenspan - Periodic solution -  onde non-lineaire 1D sur plage'
+          32 - Experience de Cox - Deferlement deversant
+	  ==============================================='
+	  40 - Gaussienne - Propagation Onde lineaire 1D sur fond plat'
+          41 - Gaussienne - Affaissement Onde non-lineaire 1D sur fond plat'
+          42 - Onde lineaire 1D sur relief'
+          43 - Effondrement d'une marche d'eau sur un cone 1-D
+	  ==============================================='	
+          50 - Onde non-linéaire 2D sur fond plat'
+          51 - Onde linéaire 2D sur relief - Bathy bizar'
+          52 - Onde linéaire 2D sur relief - Dune'
+          53 - Cas THACKER 2D axisymetrique dans profil parabolique'
+          54 - Cas THACKER 2D non-axisymetrique dans profil parabolique'
+
+     ====================='
+     CONDITION AUX LIMITES'
+     ====================='
+    
+      1 - Neummann homogene'
+      2 - entrante'
+      3 - paroi'
+      4 - absorbante'
+      5 - debit impose'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
